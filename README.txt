@@ -46,7 +46,7 @@ IMPORTANT: From now on, use `python3 server.py` instead of `python3 -m http.serv
 
 Upload 2–4 photos of the same item. Add a useful description. Click Analyze.
 
-The website should return a real Gemini analysis, not the old demo rules.
+The website should return a real Gemini analysis.
 
 ## Safety
 
