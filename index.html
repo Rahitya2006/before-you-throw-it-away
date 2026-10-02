@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Before You Throw It Away — an AI-powered guide to reuse, repair, donate, or recycle your items." />
+  <title>Before You Throw It Away</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <header class="topbar">
+    <div class="brand" onclick="showPage('home')" role="button" tabindex="0">
+      <div class="brand-mark">↻</div>
+      <div>
+        <div class="brand-name">Before You Throw It Away</div>
+        <div class="brand-sub">Give your stuff another chance.</div>
+      </div>
+    </div>
+    <nav>
+      <button class="nav-btn" onclick="showPage('home')">Home</button>
+      <button class="nav-btn" onclick="showPage('history')">My History</button>
+      <label class="lang-wrap">
+        <span class="sr-only">Language</span>
+        <select id="languageSelect" onchange="setLanguage(this.value)">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="te">తెలుగు</option>
+        </select>
+      </label>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">AI-powered second chance</span>
+          <h1>Before you throw it away, <span>ask what’s next.</span></h1>
+          <p>
+            Take a photo of an item and get practical guidance on whether to
+            reuse, repair, donate, or recycle it.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-btn big" onclick="showPage('analyzer')">📷 Analyze an Item</button>
+            <button class="ghost-btn big" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See How It Works</button>
+          </div>
+          <div class="trust-row">
+            <span>✓ Multiple photos</span>
+            <span>✓ Voice input</span>
+            <span>✓ Step-by-step help</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="floating-card fc-1">
+            <div class="mini-icon reuse">♻</div>
+            <div><strong>Reuse</strong><small>Give it a new purpose</small></div>
+          </div>
+          <div class="floating-card fc-2">
+            <div class="mini-icon repair">🔧</div>
+            <div><strong>Repair</strong><small>See if you can fix it</small></div>
+          </div>
+          <div class="object-orb">
+            <div class="orb-inner">
+              <div class="orb-arrow">↻</div>
+              <div class="orb-text">ONE ITEM<br><span>FOUR PATHS</span></div>
+            </div>
+          </div>
+          <div class="floating-card fc-3">
+            <div class="mini-icon donate">♥</div>
+            <div><strong>Donate</strong><small>Find someone who can use it</small></div>
+          </div>
+          <div class="floating-card fc-4">
+            <div class="mini-icon recycle">◌</div>
+            <div><strong>Recycle</strong><small>Recover useful materials</small></div>
+          </div>
+        </div>
+      </div>
+
+      <section id="how" class="how-section">
+        <div class="section-heading">
+          <span class="eyebrow">How it works</span>
+          <h2>From “What do I do with this?” to “I know my next step.”</h2>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-icon">📸</div>
+            <h3>Show the item</h3>
+            <p>Take one or several photos and optionally describe what is wrong.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-icon">🧠</div>
+            <h3>Understand it</h3>
+            <p>The AI combines the images, description, and condition clues.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-icon">🧭</div>
+            <h3>Choose a path</h3>
+            <p>You choose reuse, repair, donate, or recycle. The choice is yours.</p>
+          </article>
+          <article class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-icon">✅</div>
+            <h3>Take action</h3>
+            <p>Get a practical guide, follow-up help, or nearby real-world options.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <!-- ANALYZER -->
+    <section id="page-analyzer" class="page">
+      <div class="page-shell">
+        <div class="page-head">
+          <div>
+            <span class="eyebrow">Step 1 · Analyze</span>
+            <h2>Show me the item</h2>
+            <p>Upload several views of the same object for a better analysis.</p>
+          </div>
+          <button class="text-btn" onclick="showPage('home')">← Back</button>
+        </div>
+
+        <div class="analyzer-grid">
+          <div class="upload-panel card">
+            <div class="drop-zone" id="dropZone">
+              <div class="camera-symbol">📷</div>
+              <h3>Add photos of the same item</h3>
+              <p>Front, back, label, damage, close-ups — all help.</p>
+              <div class="upload-actions">
+                <label class="primary-btn">
+                  Take Photo
+                  <input id="cameraInput" type="file" accept="image/*" capture="environment" multiple hidden />
+                </label>
+                <label class="secondary-btn">
+                  Upload Photos
+                  <input id="fileInput" type="file" accept="image/*" multiple hidden />
+                </label>
+              </div>
+            </div>
+
+            <div id="previewGrid" class="preview-grid"></div>
+            <div class="upload-note">
+              <span>🔒</span>
+              <span>Prototype mode: photos stay in your browser session unless you choose otherwise.</span>
+            </div>
+          </div>
+
+          <div class="details-panel card">
+            <div class="panel-title-row">
+              <div>
+                <span class="small-label">Optional</span>
+                <h3>Tell us anything else</h3>
+              </div>
+              <button id="voiceBtn" class="icon-btn" title="Voice input" onclick="toggleVoice()">🎙️</button>
+            </div>
+            <textarea id="descriptionInput" rows="8" placeholder="Example: It still turns on, but the battery does not work and the screen has a crack."></textarea>
+            <div class="voice-row">
+              <select id="voiceLang">
+                <option value="en-IN">English (India)</option>
+                <option value="hi-IN">हिन्दी</option>
+                <option value="te-IN">తెలుగు</option>
+                <option value="en-US">English (US)</option>
+              </select>
+              <span id="voiceStatus">Tap the microphone to speak.</span>
+            </div>
+
+            <div class="hint-box">
+              <strong>Tip</strong>
+              <span>A label/model number or a close-up of the damage can make the result much more useful.</span>
+            </div>
+
+            <button id="analyzeBtn" class="primary-btn full" onclick="runDemoAnalysis()">Analyze My Item →</button>
+            <div class="prototype-note">This first version uses demo analysis so we can test the complete user journey before connecting a live AI model.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANALYSIS RESULT -->
+    <section id="page-result" class="page">
+      <div class="page-shell narrow">
+        <div class="progress"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+
+        <div class="result-card card">
+          <div class="result-image-wrap">
+            <div id="resultImageGrid" class="result-images"></div>
+          </div>
+          <div class="result-main">
+            <span class="eyebrow">Analysis complete</span>
+            <h2 id="objectName">Your item</h2>
+            <div class="result-meta">
+              <span id="conditionBadge" class="badge">Condition</span>
+              <span id="confidenceText" class="muted">Confidence</span>
+            </div>
+            <p id="analysisSummary" class="large-copy"></p>
+            <div>
+              <div class="small-label">What we noticed</div>
+              <div id="detectedIssues" class="tag-row"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="decision-head">
+          <div>
+            <span class="eyebrow">Step 2 · Choose</span>
+            <h2>What do you want to do with it?</h2>
+            <p id="aiSuggestion"></p>
+          </div>
+        </div>
+
+        <div class="option-grid">
+          <button class="option-card" onclick="selectPath('reuse')">
+            <div class="option-icon reuse-bg">♻</div>
+            <div class="option-body"><h3>Reuse</h3><p>Give it a new purpose.</p><span>Explore ideas →</span></div>
+          </button>
+          <button class="option-card" onclick="selectPath('repair')">
+            <div class="option-icon repair-bg">🔧</div>
+            <div class="option-body"><h3>Repair</h3><p>Fix it and keep using it.</p><span>Check repairability →</span></div>
+          </button>
+          <button class="option-card" onclick="selectPath('donate')">
+            <div class="option-icon donate-bg">♥</div>
+            <div class="option-body"><h3>Donate</h3><p>Pass it to someone who can use it.</p><span>Find donation options →</span></div>
+          </button>
+          <button class="option-card" onclick="selectPath('recycle')">
+            <div class="option-icon recycle-bg">◌</div>
+            <div class="option-body"><h3>Recycle</h3><p>Recover useful materials responsibly.</p><span>See recycling steps →</span></div>
+          </button>
+        </div>
+
+        <div class="center-row">
+          <button class="ghost-btn" onclick="showPage('analyzer')">← Add / change photos</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section id="page-workflow" class="page">
+      <div class="page-shell">
+        <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+        <div class="workflow-head">
+          <button class="text-btn" onclick="showPage('result')">← Choose another path</button>
+          <div id="workflowPathBadge" class="path-badge">REUSE</div>
+        </div>
+
+        <div id="workflowContent"></div>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="page-history" class="page">
+      <div class="page-shell">
+        <div class="page-head">
+          <div>
+            <span class="eyebrow">Your saved sessions</span>
+            <h2>My History</h2>
+            <p>Saved locally in this prototype's browser storage.</p>
+          </div>
+          <button class="ghost-btn" onclick="clearHistory()">Clear History</button>
+        </div>
+        <div id="historyList" class="history-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Before You Throw It Away</strong>
+      <span>Prototype · Built step by step with ChatGPT</span>
+    </div>
+    <span>AI suggestions can be wrong — verify important safety, donation and recycling information.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
